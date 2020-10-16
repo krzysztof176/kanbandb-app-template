@@ -115,7 +115,7 @@ class TaskCard extends React.Component {
 
     render() {
       const { classes, taskCard, refreshTaskCards } = this.props;
-      const { isCardEditorOpen, isBasicDecisionMakerOpen } = this.state;
+      const { isCardEditorOpen, isBasicDecisionMakerOpen, dragging } = this.state;
       const { name, description } = taskCard;
 
       return (
@@ -132,13 +132,13 @@ class TaskCard extends React.Component {
                 </Typography>
 
                 <Tooltip title="Edit" placement="bottom-end">
-                  <IconButton onClick={this.onClickCard} className={`${classes.iconButton} ${classes.editIconButton}`}>
+                  <IconButton onClick={this.onClickCard} className={`${classes.iconButton} ${classes.editIconButton}`} disabled={dragging}>
                     <Edit />
                   </IconButton>
                 </Tooltip>
 
                 <Tooltip title="Delete" placement="bottom-end">
-                  <IconButton onClick={this.onClickDelete} className={`${classes.iconButton} ${classes.deleteIconButton}`}>
+                  <IconButton onClick={this.onClickDelete} className={`${classes.iconButton} ${classes.deleteIconButton}`} disabled={dragging}>
                     <Delete />
                   </IconButton>
                 </Tooltip>
