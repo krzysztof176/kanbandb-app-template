@@ -5,7 +5,7 @@ export default () => ({
     marginBottom: 8,
   },
   iconButton: {
-    padding: 0,
+    padding: 4,
     top: 0,
     position: 'absolute',
     transition: 'color 0.3s',
