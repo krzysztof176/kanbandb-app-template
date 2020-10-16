@@ -2,8 +2,6 @@ export default () => ({
   gridContainer: {
     height: 'calc(100vh - 196px)',
     width: '100%',
-    // overflowY: 'auto',
-    // overflowX: 'hidden',
     borderRight: '1px solid gray',
   },
   typography: {
