@@ -3,10 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "4.11.0",
+    "@material-ui/icons": "4.9.1",
+    "@material-ui/styles": "4.10.0",
     "cra-template": "1.0.3",
     "kanbandb": "github:netpoetica/KanbanDB#master",
+    "lodash": "4.17.20",
+    "prop-types": "15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-draggable": "4.4.3",
     "react-scripts": "3.4.3"
   },
   "scripts": {
@@ -14,9 +20,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "browserslist": {
     "production": [
@@ -29,5 +32,14 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.21.4",
+    "eslint-plugin-react-hooks": "^4.1.2"
   }
 }
