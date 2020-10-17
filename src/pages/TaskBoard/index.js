@@ -13,6 +13,7 @@ import KanbanDB from 'kanbandb/dist/KanbanDB';
 import styles from './index.styles';
 
 // Components
+import FeedbackOption from '../../components/FeedbackOption';
 import Column from '../../components/Column';
 import CardAdder from '../../components/CardAdder';
 
@@ -51,27 +52,30 @@ class TaskBoard extends React.Component {
     const { columns, taskCards } = this.state;
 
     return (
-      <Grid container className={classes.gridContainer}>
-        {
-          Object.keys(columns).map((columnName) => (
-            <Grid
-              item
-              xs={12 / Object.keys(APPLICATION_CONSTANTS.TASKBOARD_COLUMNS).length}
-              key={`taskboard-column-${columnName.toLowerCase()}`}
-            >
-              <Column
-                name={columnName}
-                title={columns[columnName].displayName}
-                taskCards={taskCards}
-                refreshTaskCards={this.refreshTaskCards}
-              />
-            </Grid>
-          ))
-        }
+      <>
+        <FeedbackOption />
+        <Grid container className={classes.gridContainer}>
+          {
+            Object.keys(columns).map((columnName) => (
+              <Grid
+                item
+                xs={12 / Object.keys(APPLICATION_CONSTANTS.TASKBOARD_COLUMNS).length}
+                key={`taskboard-column-${columnName.toLowerCase()}`}
+              >
+                <Column
+                  name={columnName}
+                  title={columns[columnName].displayName}
+                  taskCards={taskCards}
+                  refreshTaskCards={this.refreshTaskCards}
+                />
+              </Grid>
+            ))
+          }
+        </Grid>
         <CardAdder
           refreshTaskCards={this.refreshTaskCards}
         />
-      </Grid>
+      </>
     );
   }
 }
