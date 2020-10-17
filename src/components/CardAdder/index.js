@@ -82,7 +82,7 @@ class CardAdder extends React.Component {
                     Object.values(APPLICATION_CONSTANTS.TASKBOARD_COLUMNS).map((column) => (
                       <MenuItem value={column.name} key={`taskboard-status-menuitem-${column.name.toLowerCase()}`}>{column.displayName}</MenuItem>
                     ))
-                }
+                  }
                 </Select>
               </FormControl>
             </Grid>
