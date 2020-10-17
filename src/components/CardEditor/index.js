@@ -27,109 +27,109 @@ class CardEditor extends React.Component {
     };
   }
 
-    onChange = (key) => (event) => {
-      this.setState({ [key]: event.target.value });
-    };
+  onChange = (key) => (event) => {
+    this.setState({ [key]: event.target.value });
+  };
 
-    onClickCancel = () => {
-      const { taskCard, onClose } = this.props;
-      const { name, description, status } = taskCard;
-      this.setState({ updatedName: name, updatedDescription: description, updatedStatus: status });
+  onClickCancel = () => {
+    const { taskCard, onClose } = this.props;
+    const { name, description, status } = taskCard;
+    this.setState({ updatedName: name, updatedDescription: description, updatedStatus: status });
+    onClose();
+  };
+
+  onClickSave = () => {
+    const { taskCard, refreshTaskCards, onClose } = this.props;
+    const { updatedName, updatedDescription, updatedStatus } = this.state;
+    const { id } = taskCard;
+    KanbanDB.updateCardById(id, { name: updatedName, description: updatedDescription, status: updatedStatus }).then(() => {
+      refreshTaskCards();
       onClose();
-    };
+    }).catch((error) => {
+      console.error(error);
+      refreshTaskCards();
+      onClose();
+    });
+  };
 
-    onClickSave = () => {
-      const { taskCard, refreshTaskCards, onClose } = this.props;
-      const { updatedName, updatedDescription, updatedStatus } = this.state;
-      const { id } = taskCard;
-      KanbanDB.updateCardById(id, { name: updatedName, description: updatedDescription, status: updatedStatus }).then(() => {
-        refreshTaskCards();
-        onClose();
-      }).catch((error) => {
-        console.error(error);
-        refreshTaskCards();
-        onClose();
-      });
-    };
-
-    render() {
-      const { classes, open, taskCard } = this.props;
-      const { updatedName, updatedDescription, updatedStatus } = this.state;
-      if (!open) {
-        return null;
-      }
-
-      return (
-        <Dialog
-          open={open}
-          maxWidth="md"
-          fullWidth
-        >
-          <DialogTitle> Card Editor </DialogTitle>
-          <DialogContent>
-            <Grid container spacing={2}>
-              <Grid item xs={3}>
-                <TextField
-                  label="Name"
-                  value={updatedName}
-                  onChange={this.onChange('updatedName')}
-                  fullWidth
-                />
-              </Grid>
-
-              <Grid item xs={6}>
-                <TextField
-                  label="Description"
-                  value={updatedDescription}
-                  onChange={this.onChange('updatedDescription')}
-                  fullWidth
-                />
-              </Grid>
-
-              <Grid item xs={3}>
-                <FormControl className={classes.formControl}>
-                  <InputLabel>Status</InputLabel>
-                  <Select
-                    value={updatedStatus}
-                    onChange={this.onChange('updatedStatus')}
-                  >
-                    {
-                        Object.values(APPLICATION_CONSTANTS.TASKBOARD_COLUMNS).map((column) => (
-                          <MenuItem
-                            value={column.name}
-                            key={`taskboard-status-menuitem-${column.name.toLowerCase()}`}
-                          >
-                            {column.displayName}
-                          </MenuItem>
-                        ))
-                    }
-                  </Select>
-                </FormControl>
-              </Grid>
-            </Grid>
-          </DialogContent>
-
-          <DialogActions>
-            <Button
-              variant="outlined"
-              onClick={this.onClickCancel}
-            >
-              Cancel
-            </Button>
-            <Button
-              className={classes.saveButton}
-              variant="outlined"
-              onClick={this.onClickSave}
-              disabled={updatedName === taskCard.name
-                  && updatedDescription === taskCard.description
-                  && updatedStatus === taskCard.status}
-            >
-              Save
-            </Button>
-          </DialogActions>
-        </Dialog>
-      );
+  render() {
+    const { classes, open, taskCard } = this.props;
+    const { updatedName, updatedDescription, updatedStatus } = this.state;
+    if (!open) {
+      return null;
     }
+
+    return (
+      <Dialog
+        open={open}
+        maxWidth="md"
+        fullWidth
+      >
+        <DialogTitle> Card Editor </DialogTitle>
+        <DialogContent>
+          <Grid container spacing={2}>
+            <Grid item xs={3}>
+              <TextField
+                label="Name"
+                value={updatedName}
+                onChange={this.onChange('updatedName')}
+                fullWidth
+              />
+            </Grid>
+
+            <Grid item xs={6}>
+              <TextField
+                label="Description"
+                value={updatedDescription}
+                onChange={this.onChange('updatedDescription')}
+                fullWidth
+              />
+            </Grid>
+
+            <Grid item xs={3}>
+              <FormControl className={classes.formControl}>
+                <InputLabel>Status</InputLabel>
+                <Select
+                  value={updatedStatus}
+                  onChange={this.onChange('updatedStatus')}
+                >
+                  {
+                      Object.values(APPLICATION_CONSTANTS.TASKBOARD_COLUMNS).map((column) => (
+                        <MenuItem
+                          value={column.name}
+                          key={`taskboard-status-menuitem-${column.name.toLowerCase()}`}
+                        >
+                          {column.displayName}
+                        </MenuItem>
+                      ))
+                  }
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
+        </DialogContent>
+
+        <DialogActions>
+          <Button
+            variant="outlined"
+            onClick={this.onClickCancel}
+          >
+            Cancel
+          </Button>
+          <Button
+            className={classes.saveButton}
+            variant="outlined"
+            onClick={this.onClickSave}
+            disabled={updatedName === taskCard.name
+                && updatedDescription === taskCard.description
+                && updatedStatus === taskCard.status}
+          >
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
+    );
+  }
 }
 
 CardEditor.propTypes = {
